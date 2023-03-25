@@ -1,0 +1,212 @@
+<div class="product-content">
+  <!-- Title -->
+  <div class="title-table text-black justify-between flex">
+    <h1>Meta datas</h1>
+    <h1>{{ metas.length }} 🥷</h1>
+  </div>
+  <!-- Table -->
+  <div>
+    <table class="min-w-full table-auto">
+      <thead class="justify-between">
+        <tr class="bg-gray-800">
+          <th class="py-2">
+            <span class="text-gray-300">User</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Password</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Country</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">CP</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Date</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Cookie</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">User agent</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">IP address</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Platform</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Adaccounts</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-gray-200">
+        <tr
+          class="bg-white border-4 border-gray-200"
+          *ngFor="let item of metas"
+        >
+          <td class="px-2 py-2 table-td">
+            <span>{{ item.user }}</span>
+          </td>
+          <td class="px-2 py-2 table-td">
+            <span>{{ item.pass }}</span>
+          </td>
+          <td class="px-2 py-2">
+            <span>{{ item.country }}</span>
+          </td>
+          <td class="px-2 py-2">
+            <span>{{ item.HasCheckpoint ? "✅" : "❌" }}</span>
+          </td>
+          <td class="px-2 py-2 table-date">
+            <span>{{ item.dateAdded }}</span>
+          </td>
+          <td class="px-2 py-2 table-cookie">
+            <span>{{ item.cookie }}</span>
+          </td>
+          <td class="px-2 py-2 table-td">
+            <span>{{ item.Agent }}</span>
+          </td>
+          <td class="px-2 py-2">
+            <span>{{ item.ipAdress }}</span>
+          </td>
+          <td class="px-2 py-2">
+            <span>{{ item.platform }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ sumAccountStatus(item.adaccounts) }}</span>
+            <br />
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              (click)="onShowAdaccount(item.adaccounts, item.user)"
+            >
+              {{ item.adaccounts.length }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<dx-popup
+  [dragEnabled]="false"
+  [(visible)]="isShowDetailAdaccounts"
+  position="center"
+  [maxWidth]="'90%'"
+  [minWidth]="'80%'"
+  [maxHeight]="'90%'"
+  [minHeight]="'80%'"
+  width="auto"
+  height="auto"
+  title="Adaccounts datas"
+  [hideOnOutsideClick]="true"
+>
+  <dx-scroll-view height="100%" width="100%" direction="both">
+    <table class="table-adaccounts">
+      <thead class="justify-between">
+        <tr class="bg-gray-800">
+          <th class="py-2">
+            <span class="text-gray-300">Id</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Currency</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Name</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Account currency ratio to usd</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Adtrust dsl</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Amount spent</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Status</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Balance</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Last spend time</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Min daily budget</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Next bill date</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-gray-200">
+        <tr
+          class="bg-white border-4 border-gray-200"
+          *ngFor="let item of adaccounts"
+        >
+          <td class="px-2 py-2 table-td">
+            <span>{{ item.id }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.currency }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.name }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.account_currency_ratio_to_usd }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.adtrust_dsl }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.amount_spent }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.account_status }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.balance }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.last_spend_time }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.min_daily_budget }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.next_bill_date }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </dx-scroll-view>
+</dx-popup>

@@ -1,0 +1,84 @@
+<div class="app-bar flex content-end">
+  <div class="relative">
+    <i class="fa-regular fa-bell flex-initial text-white notify-icon"></i>
+    <span
+      class="absolute top-0 left-8 transform -translate-y-1/2 w-3.5 h-3.5 bg-red-400 border-2 border-white dark:border-gray-800 rounded-full"
+    ></span>
+  </div>
+  <img
+    class="flex-initial w-10 h-10 rounded-full mr-5 cursor-pointer object-cover"
+    src="http://mcdowellhomes.com.au/wp-content/uploads/2016/09/no-user-image-300x300.gif"
+    alt="Rounded avatar"
+    (click)="toggleShowOption()"
+  />
+
+  <!-- Show Option User -->
+  <ng-container *ngIf="isShowOption">
+    <div class="option-with-avatar p-5 shadow-2xl bg-white rounded-2xl">
+      <ul class="">
+        <li>
+          <button
+            type="button"
+            class="w-full py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            Profile
+          </button>
+        </li>
+        <li>
+          <button
+            (click)="toggleShowConfirmLogout()"
+            type="button"
+            class="w-full py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            <i class="fa-solid fa-right-from-bracket text-red-600 mr-2"></i>
+            Logout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
+</div>
+
+<!-- Popup profile -->
+<dx-popup
+  [dragEnabled]="true"
+  [(visible)]="isVisibleProfile"
+  position="center"
+  [maxWidth]="'70%'"
+  width="auto"
+  height="auto"
+  [hideOnOutsideClick]="false"
+>
+  <app-profile></app-profile>
+</dx-popup>
+
+<!-- Popup confirm logout -->
+<dx-popup
+  [dragEnabled]="false"
+  [(visible)]="isVisibleConfirmLogout"
+  position="center"
+  width="auto"
+  height="auto"
+  title="Confirm"
+  [hideOnOutsideClick]="true"
+>
+  <div class="text-center p-4">
+    <h3>Are you sure want to logout?</h3>
+    <div class="flex justify-between">
+      <button
+        type="button"
+        (click)="hiddenPopupConfirmLogout()"
+        class="flex-initial py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="actionLogout()"
+        type="button"
+        class="flex-initial text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</dx-popup>

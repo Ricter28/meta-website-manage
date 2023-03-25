@@ -1,0 +1,36 @@
+.product-content{
+    margin-top: 4rem;
+}
+
+table{
+    text-align: center;
+    justify-content: center;
+    min-width: 1200px;
+}
+
+.table-td{
+    max-width: 200px;
+    min-width: 140px;
+    word-break: break-all 
+}
+.table-date{
+    max-width: 120px;
+    min-width: 90px;
+    word-break: break-all 
+}
+
+.table-cookie{
+    min-width: 400px;
+    max-width: 500px;
+    word-break: break-all 
+}
+
+.table-adaccounts{
+    width: 80%;
+    height: 75%;
+    overflow: auto;
+}
+
+.table-adaccounts-height{
+    height: 700px;
+}

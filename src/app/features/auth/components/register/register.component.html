@@ -1,0 +1,197 @@
+<ng-container>
+  <section class="h-screen">
+    <div class="px-6 h-full text-gray-800">
+      <div
+        class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"
+      >
+        <div
+          class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
+        >
+          <img
+            src="https://cdn.dribbble.com/users/1018473/screenshots/5344535/login.png"
+            class="w-full"
+            alt="Sample image"
+          />
+        </div>
+        <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+          <form
+            class="sign-in-form"
+            autocomplete="off"
+            [formGroup]="registerForm"
+            (ngSubmit)="formSubmit$.next(true)"
+          >
+            <!-- Email input -->
+            <div class="mb-2">
+              <input
+                type="text"
+                class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                [ngClass]="email?.errors ? 'border-red-500' : ''"
+                formControlName="email"
+                placeholder="Email address"
+              />
+              <mat-error
+                class="text-red-600 text-xs"
+                *ngIf="email?.errors?.['required']"
+                >Email is required!</mat-error
+              >
+              <mat-error
+                class="text-red-600 text-xs"
+                *ngIf="email?.errors?.['pattern']"
+                >Email is incorrect!</mat-error
+              >
+            </div>
+
+            <!-- Full name input -->
+            <div class="mb-2">
+              <input
+                type="text"
+                class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                [ngClass]="fullName?.errors ? 'border-red-500' : ''"
+                formControlName="fullName"
+                placeholder="Full name"
+              />
+              <mat-error
+                class="text-red-600 text-xs"
+                *ngIf="fullName?.errors?.['required']"
+                >Full name is required!</mat-error
+              >
+            </div>
+
+            <div class="flex justify-between mb-1">
+              <!-- Phone number input -->
+              <div class="w-full">
+                <input
+                  type="text"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                  [ngClass]="phoneNumber?.errors ? 'border-red-500' : ''"
+                  formControlName="phoneNumber"
+                  placeholder="Phone number"
+                />
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="phoneNumber?.errors?.['required']"
+                  >Phone number is required!</mat-error
+                >
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="phoneNumber?.errors?.['pattern']"
+                  >Phone number is incorrect!</mat-error
+                >
+              </div>
+              <!-- Birth day input -->
+              <div class="w-full ml-1">
+                <input
+                  type="date"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                  [ngClass]="birthDay?.errors ? 'border-red-500' : ''"
+                  formControlName="birthDay"
+                  placeholder="Address"
+                />
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="birthDay?.errors?.['required']"
+                  >Birthday is required!</mat-error
+                >
+              </div>
+            </div>
+
+            <!-- Address input -->
+            <div class="mb-2">
+              <input
+                type="text"
+                class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                [ngClass]="address?.errors ? 'border-red-500' : ''"
+                formControlName="address"
+                placeholder="Address"
+              />
+              <mat-error
+                class="text-red-600 text-xs"
+                *ngIf="address?.errors?.['required']"
+                >Address is required!</mat-error
+              >
+            </div>
+
+          
+            <div class="flex justify-between mb-2">
+              <!-- Password input -->
+              <div class="w-full">
+                <input
+                  type="password"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                  [ngClass]="password?.errors ? 'border-red-500' : ''"
+                  formControlName="password"
+                  placeholder="Password"
+                />
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="password?.errors?.['required']"
+                  >Password is required!</mat-error
+                >
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="password?.errors?.['minlength'] || password?.errors?.['maxlength']"
+                  >Password length from 6 to 32 characters</mat-error
+                >
+              </div>
+
+              <!-- Confirm password input -->
+              <div class="w-full ml-1">
+                <input
+                  type="password"
+                  class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-2xl transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-cyan-600 focus:outline-none"
+                  [ngClass]="confirmPassword?.errors ? 'border-red-500' : ''"
+                  formControlName="confirmPassword"
+                  placeholder="Confirm password"
+                />
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="confirmPassword?.errors?.['required']"
+                  >Password is required!</mat-error
+                >
+                <mat-error
+                  class="text-red-600 text-xs"
+                  *ngIf="confirmPassword?.errors?.['minlength'] || confirmPassword?.errors?.['maxlength']"
+                  >Password length from 6 to 32 characters</mat-error
+                >
+              </div>
+            </div>
+           
+
+            <div class="text-center lg:text-center">
+              <button
+                type="submit"
+                class="w-full inline-block px-7 py-3 bg-cyan-800 text-white font-medium text-sm leading-snug uppercase rounded-2xl shadow-md hover:bg-cyan-700 hover:shadow-lg focus:bg-cyan-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-cyan-800 active:shadow-lg transition duration-150 ease-in-out"
+                [disabled]="registerForm!.invalid"
+              >
+                Register
+              </button>
+
+              <p class="text-sm mt-2 pt-1 mb-0">
+                You have an account?
+                <a
+                  (click)="navigateToSignInPage()"
+                  class="cursor-pointer text-cyan-800 font-semibold hover:text-cyan-600 focus:text-cyan-600 transition duration-200 ease-in-out text-sm"
+                  >Login</a
+                >
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<!-- POPUP LOADING -->
+<dx-load-panel
+  #loadPanel
+  shadingColor="rgba(0,0,0,0.4)"
+  [position]="{ of: '#employee' }"
+  [(visible)]="isLoading"
+  [showIndicator]="true"
+  [showPane]="true"
+  [shading]="true"
+  [hideOnOutsideClick]="false"
+  message="Loading..."
+>
+</dx-load-panel>

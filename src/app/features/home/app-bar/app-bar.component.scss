@@ -1,0 +1,35 @@
+.app-bar{
+    background-color: #263238;
+    padding: 0.625rem;
+    text-align: end;
+    color: #fff;
+    font-weight: 600;
+    align-items: center;
+    justify-content: end;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    .notify-icon{
+        font-size: 28px;
+        margin: 0rem 1rem 0rem 1rem;
+    }
+
+    .content-element{
+        align-items: center;
+    }
+}
+
+.app-bar-trimmed {
+    width: calc(100% - 16.5625rem);
+}
+
+.app-bar-md-screen {
+    width: calc(100% - 5rem);
+}
+
+.option-with-avatar{
+    position: absolute;
+    z-index: 3;
+    margin-top: 11rem;
+    background-color: #fff;
+}
