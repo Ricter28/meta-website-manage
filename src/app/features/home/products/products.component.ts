@@ -10,6 +10,7 @@ import { AuthenticationService } from '../../auth/services';
 export class ProductsComponent implements OnInit {
 
   metas: MetaModel[] = [];
+  metasShow: MetaModel[] = [];
   adaccounts: AdaccountsModel[] = [];
   isShowDetailAdaccounts = false;
   constructor(
@@ -18,8 +19,11 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.getDataMeta().subscribe((response)=>{
-      console.log(response);
       this.metas = response;
+      this.metasShow = [];
+      for(let i = 0; i < Math.min(10, this.metas.length) ; i++){
+        this.metasShow.push(this.metas[i]);
+      }
     });
   }
 
@@ -52,5 +56,16 @@ export class ProductsComponent implements OnInit {
   onShowAdaccount(adaccounts: AdaccountsModel[], user: string){
     this.adaccounts = adaccounts;
     this.isShowDetailAdaccounts = true;
+  }
+
+  onChangePage(event: any){
+    console.log(event);
+    
+    const pageIndex = event.pageIndex;
+    const pageSize = event.pageSize;
+    this.metasShow = [];
+    for(let i = pageIndex * pageSize; i < Math.min((pageIndex + 1) * pageSize, this.metas.length) ; i++){
+      this.metasShow.push(this.metas[i]);
+    }
   }
 }

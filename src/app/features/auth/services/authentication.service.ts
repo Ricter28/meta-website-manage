@@ -51,12 +51,15 @@ export class AuthenticationService {
   }
 
   setCurrentUser(user: UserModel | undefined, accessToken?: string) {
+    console.log(user);
+    console.log(accessToken);
+    
+    
     if (user) {
       this.loggedUserService.setLoggedUser(user);
-      if (accessToken) {
-        AppStorage.storeTokenData(ACCESS_TOKEN_KEY, accessToken);
-      }
-      // this.permissionsService.loadPermissions(user.permissions || []);
+    }
+    if (accessToken) {
+      AppStorage.storeTokenData(ACCESS_TOKEN_KEY, accessToken);
     }
   }
 

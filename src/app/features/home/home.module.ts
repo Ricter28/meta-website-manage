@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
+import { MatPaginatorModule} from "@angular/material/paginator";
 import { AppUrl } from '../../constants/app-url';
 import { SharedModule } from '../../shared/shared.module';
 import { ThemeModule } from '../../theme/theme.module';
@@ -50,6 +51,7 @@ const routes: Routes = [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatPaginatorModule,
     MatCheckboxModule,
     MatButtonModule,
     ReactiveFormsModule,

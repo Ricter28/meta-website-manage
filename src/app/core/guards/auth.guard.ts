@@ -1,26 +1,34 @@
 ﻿import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, Router, RouterStateSnapshot
+  ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanLoad, Route, RouterStateSnapshot
 } from '@angular/router';
-import { AuthenticationService } from '../../features/auth/services/authentication.service';
+import { AuthenticationService } from 'src/app/features/auth/services/authentication.service';
 import { ApiService } from '../services/api.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   constructor(
-    private router: Router, 
-    private authService: AuthenticationService, 
-    private apiService: ApiService
+    private apiService: ApiService,
+    private authService: AuthenticationService,
     ) {
   }
 
-  private isLoggedIn(): boolean {
-    // if (this.authService.isLoggedIn()) {
-    //   return true;
-    // }
-    // this.authService.removeCurrentUser(false);
-    // this.apiService.navigateToLogin(true);
-    return this.apiService.accessToken !== null;
+  private isLoggedIn(): boolean { 
+    try{
+      const dateExpiration = new Date(this.apiService.accessToken);
+      const now = new Date();
+      if(now <= dateExpiration){
+        return true;
+      }else{
+        this.authService.removeCurrentUser(false);
+        this.apiService.navigateToLogin(true);
+        return false;
+      }
+    }catch(_){
+      this.authService.removeCurrentUser(false);
+      this.apiService.navigateToLogin(true);
+      return false;
+    }
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

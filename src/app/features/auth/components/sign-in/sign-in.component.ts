@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { filter, finalize, startWith, Subject, switchMap, take, tap } from 'rxjs';
 import { UserModel } from 'src/app/core/models/user.model';
+import { AppNotify } from 'src/app/utils';
 import { AppUrl } from '../../../../constants/app-url';
 import { VALIDATION_REGEX } from '../../../../constants/constant';
 import { AuthenticationService } from '../../services';
@@ -63,9 +64,15 @@ export class SignInComponent implements OnInit {
 
   async submitForm() {
     this.isLoading = true;
-    if(this.signInForm.get('email')?.value === "anhhuy@gmail.com" && this.signInForm.get('password')?.value === 'meta'){
-      this.authenticationService.setCurrentUser(new UserModel({}), 'accessToken')
+    let today = new Date();
+    today.setDate(today.getDate() + 7);
+    const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate());
+    if(this.signInForm.get('email')?.value === "meta@gmail.com" && this.signInForm.get('password')?.value === 'meta'){
+      this.authenticationService.setCurrentUser(new UserModel({}), date)
       this.router.navigate([AppUrl.Home]);
+    }else{
+      this.isLoading = false;
+      AppNotify.error("Email or password is incorrect!")
     }
   }
 

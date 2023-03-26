@@ -51,7 +51,7 @@
       <tbody class="bg-gray-200">
         <tr
           class="bg-white border-4 border-gray-200"
-          *ngFor="let item of metas"
+          *ngFor="let item of metasShow"
         >
           <td class="px-2 py-2 table-td">
             <span>{{ item.user }}</span>
@@ -94,6 +94,13 @@
         </tr>
       </tbody>
     </table>
+    <mat-paginator
+      [pageSize]="10"
+      [length]="metas.length"
+      [pageSizeOptions]="[10, 25, 50]"
+      (page)="onChangePage($event)"
+    >
+</mat-paginator>
   </div>
 </div>
 
