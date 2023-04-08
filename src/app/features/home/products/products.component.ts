@@ -9,6 +9,8 @@ import { AuthenticationService } from '../../auth/services';
 })
 export class ProductsComponent implements OnInit {
 
+  rawData: MetaModel[] = [];
+  ready: string[] = [];
   metas: MetaModel[] = [];
   metasShow: MetaModel[] = [];
   adaccounts: AdaccountsModel[] = [];
@@ -19,7 +21,13 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.getDataMeta().subscribe((response)=>{
-      this.metas = response;
+      response.forEach((element)=>{
+        if(!this.ready.includes(element.user+element.pass+element.ipAdress)){
+          this.rawData.push(element);
+        }
+        this.ready.push(element.user+element.pass+element.ipAdress);
+      });
+      this.metas = this.rawData;
       this.metasShow = [];
       for(let i = 0; i < Math.min(10, this.metas.length) ; i++){
         this.metasShow.push(this.metas[i]);
