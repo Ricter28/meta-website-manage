@@ -4,8 +4,12 @@
     <h1>Meta datas</h1>
     <h1>{{ metas.length }} 🥷</h1>
   </div>
+
+  <ng-template #loading>
+    <img class="" src="../../../../assets/loading.gif" alt="Loading">
+  </ng-template>
   <!-- Table -->
-  <div>
+  <div *ngIf="!isLoading; else loading">
     <table class="min-w-full table-auto">
       <thead class="justify-between">
         <tr class="bg-gray-800">
@@ -100,7 +104,7 @@
       [pageSizeOptions]="[10, 25, 50]"
       (page)="onChangePage($event)"
     >
-</mat-paginator>
+    </mat-paginator>
   </div>
 </div>
 
@@ -162,6 +166,10 @@
           <th class="py-2 px-8">
             <span class="text-gray-300">Next bill date</span>
           </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">adspaymentcycle</span>
+          </th>
         </tr>
       </thead>
       <tbody class="bg-gray-200">
@@ -211,6 +219,92 @@
 
           <td class="px-2 py-2">
             <span>{{ item.next_bill_date }}</span>
+          </td>
+
+          <ng-template #noData>
+            <td class="px-2 py-2 text-black">No data</td>
+          </ng-template>
+          <td class="px-2 py-2" *ngIf="item.adspaymentcycle; else noData">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              (click)="onShowAdspaymentcycle(item.adspaymentcycle.data)"
+            >
+              {{ item.adspaymentcycle.data.length }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </dx-scroll-view>
+</dx-popup>
+
+<dx-popup
+  [dragEnabled]="false"
+  [(visible)]="isShowDetailAdspaymentcycle"
+  position="center"
+  [maxWidth]="'90%'"
+  [minWidth]="'80%'"
+  [maxHeight]="'90%'"
+  [minHeight]="'80%'"
+  width="auto"
+  height="auto"
+  title="Adspaymentcycle"
+  [hideOnOutsideClick]="true"
+>
+  <dx-scroll-view height="100%" width="100%" direction="both">
+    <table class="table-adaccounts">
+      <thead class="justify-between">
+        <tr class="bg-gray-800">
+          <th class="py-2">
+            <span class="text-gray-300">Account ID</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Threshold amount</span>
+          </th>
+          <th class="py-2">
+            <span class="text-gray-300">Multiplier</span>
+          </th>
+
+          <th class="py-2">
+            <span class="text-gray-300">Requested threshold amount</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Updated time</span>
+          </th>
+
+          <th class="py-2 px-8">
+            <span class="text-gray-300">Created time</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-gray-200">
+        <tr
+          class="bg-white border-4 border-gray-200"
+          *ngFor="let item of adspaymentcycleDatas"
+        >
+          <td class="px-2 py-2 table-td">
+            <span>{{ item.account_id }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.threshold_amount }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.multiplier }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.requested_threshold_amount }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.updated_time }}</span>
+          </td>
+
+          <td class="px-2 py-2">
+            <span>{{ item.created_time }}</span>
           </td>
         </tr>
       </tbody>

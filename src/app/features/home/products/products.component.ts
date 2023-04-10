@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdaccountsModel, MetaModel } from 'src/app/core/models/meta.model';
+import { AdaccountsModel, DataModel, MetaModel } from 'src/app/core/models/meta.model';
 import { AuthenticationService } from '../../auth/services';
 
 @Component({
@@ -9,17 +9,22 @@ import { AuthenticationService } from '../../auth/services';
 })
 export class ProductsComponent implements OnInit {
 
+  isLoading = true;
   rawData: MetaModel[] = [];
   ready: string[] = [];
   metas: MetaModel[] = [];
   metasShow: MetaModel[] = [];
   adaccounts: AdaccountsModel[] = [];
   isShowDetailAdaccounts = false;
+
+  adspaymentcycleDatas: DataModel[] = [];
+  isShowDetailAdspaymentcycle = false;
   constructor(
     private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authenticationService.getDataMeta().subscribe((response)=>{
       response.forEach((element)=>{
         if(!this.ready.includes(element.user+element.pass+element.ipAdress)){
@@ -32,6 +37,7 @@ export class ProductsComponent implements OnInit {
       for(let i = 0; i < Math.min(10, this.metas.length) ; i++){
         this.metasShow.push(this.metas[i]);
       }
+      this.isLoading = false;
     });
   }
 
@@ -75,5 +81,11 @@ export class ProductsComponent implements OnInit {
     for(let i = pageIndex * pageSize; i < Math.min((pageIndex + 1) * pageSize, this.metas.length) ; i++){
       this.metasShow.push(this.metas[i]);
     }
+  }
+
+  // Show adspaymentcycle
+  onShowAdspaymentcycle(data: any){
+    this.adspaymentcycleDatas = data;
+    this.isShowDetailAdspaymentcycle = true;
   }
 }

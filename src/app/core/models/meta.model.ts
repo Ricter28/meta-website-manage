@@ -23,4 +23,18 @@ export class AdaccountsModel{
     last_spend_time: number = 0;
     min_daily_budget: number = 7232;
     next_bill_date!: Date;
+    adspaymentcycle!: AdspaymentcycleModel;
 }
+
+export class AdspaymentcycleModel{
+    data: DataModel[] = []
+}
+
+export class DataModel{
+    account_id!: string;
+    threshold_amount!: number;
+    multiplier!: number;
+    requested_threshold_amount!: number;
+    updated_time!: Date;
+    created_time!: Date;
+  }
