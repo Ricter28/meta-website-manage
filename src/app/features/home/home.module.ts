@@ -17,6 +17,7 @@ import { ProductsComponent } from './products/products.component';
 import { DashboardService } from './services/dashboard.service';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { CalendarService } from './services/calendar.service';
+import { AndroidComponent } from './android/android.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: AppUrl.Products,
         component: ProductsComponent
+      }, 
+      {
+        path: AppUrl.Android,
+        component: AndroidComponent
       }
     ]
   },
@@ -43,6 +48,7 @@ const routes: Routes = [
     HomeComponent,
     AppBarComponent,
     ProfileComponent,
+    AndroidComponent,
   ],
   imports: [
     CommonModule,

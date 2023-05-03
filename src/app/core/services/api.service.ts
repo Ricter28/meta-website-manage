@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppNotify, AppStorage } from '../../utils';
 import { ACCESS_TOKEN_KEY, AUTH_SCHEME } from '../../constants/constant';
-import { API_URL } from '../../environments/endpoint';
+import { API_URL, API_URL_PHU } from '../../environments/endpoint';
 import { AppUrl } from '../../constants/app-url';
 import { tap } from 'rxjs/operators';
 
@@ -191,6 +191,27 @@ export class ApiService {
       });
     } else {
       this.router.navigate([AppUrl.SignIn]);
+    }
+  }
+
+  // PHU SERVER
+  getp<T>(url: string): Observable<T> {
+    return this.httpClient
+      .get<T>(`${API_URL_PHU}/${url}`, this.options)
+      .pipe(catchError((error) => this.handleError(error, url)));
+  }
+
+  postp<T>(url: string, data: any): Observable<T> {
+    if (data instanceof FormData) {
+      const httpOptions = {
+        headers: this.formDataHeaders
+      };
+      return this.httpClient.post<T>(`${API_URL_PHU}/${url}`, data, httpOptions)
+        .pipe(catchError((error) => this.handleError(error, url)));
+    } else {
+      return this.httpClient
+        .post<T>(`${API_URL_PHU}/${url}`, data, this.options)
+        .pipe(catchError((error) => this.handleError(error, url)));
     }
   }
 }

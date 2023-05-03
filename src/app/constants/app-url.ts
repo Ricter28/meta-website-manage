@@ -2,6 +2,7 @@ export enum AppUrl {
     SignIn = 'sign-in',
     Register = 'register',
     Home = 'home',
+    Android = 'android',
     Body = 'body',
     Forbidden = 'forbidden',
     Calendar = 'calendar',

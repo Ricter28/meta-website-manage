@@ -93,6 +93,10 @@ export class AuthenticationService {
     return this.apiService.get(API_ENDPOINT.meta);
   }
 
+  getAndroidDataMeta(): Observable<MetaModel[]> {
+    return this.apiService.getp(API_ENDPOINT.androidMeta);
+  }
+
   logout() {
     this.removeCurrentUser(true);
   }
